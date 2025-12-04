@@ -24,7 +24,7 @@ export default function Home() {
   const [glowOrbs, setGlowOrbs] = useState<Array<{ width: number; height: number; left: number; top: number; animation: string; delay: string }>>([]);
   const router = useRouter();
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  const animationFrameRef = useRef<number>();
+  const animationFrameRef = useRef<number | undefined>(undefined);
 
   // Initialize client-side only elements to prevent hydration mismatch
   useEffect(() => {
