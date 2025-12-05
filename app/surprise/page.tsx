@@ -148,18 +148,31 @@ export default function SurprisePage() {
       />
 
       {/* Birthday feature section */}
-      <div className="relative  mt-10 flex flex-col items-center gap-8 md:gap-12 text-center px-4">
-        <h2 className="text-5xl md:text-7xl lg:text-8xl font-bold text-[#d97706] drop-shadow-lg">
+      <div className="relative mt-10 flex flex-col items-center gap-8 md:gap-12 text-center px-4">
+        <h2 
+          className="text-5xl md:text-7xl lg:text-8xl font-bold text-[#d97706] drop-shadow-lg"
+          style={{
+            animation: 'fadeInDown 0.8s ease-out, textGlow 3s ease-in-out infinite 0.8s',
+          }}
+        >
           Happy Birthday
         </h2>
 
-        <div className="flex items-center justify-center h-full md:gap-12 lg:gap-16">
+        <div 
+          className="flex items-center justify-center h-full md:gap-12 lg:gap-16"
+          style={{
+            animation: 'fadeInScale 1s ease-out 0.3s both',
+          }}
+        >
           <Image
             src="/meyly1.svg"
             alt="left decoration"
             width={320}
             height={320}
-            className="w-40 h-40 md:w-56 md:h-56 lg:w-64 lg:h-64"
+            className="w-40 h-40 md:w-56 md:h-56 lg:w-64 lg:h-64 transition-transform duration-300 hover:scale-110"
+            style={{
+              animation: 'slideInLeft 0.8s ease-out 0.5s both',
+            }}
             priority
           />
           <Image
@@ -167,7 +180,10 @@ export default function SurprisePage() {
             alt="birthday cake"
             width={500}
             height={500}
-            className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 drop-shadow-2xl"
+            className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 drop-shadow-2xl transition-transform duration-500 hover:scale-105"
+            style={{
+              animation: 'cakeBounce 1s ease-out 0.7s both, cakeFloat 3s ease-in-out infinite 1.7s',
+            }}
             priority
           />
           <Image
@@ -175,14 +191,22 @@ export default function SurprisePage() {
             alt="right decoration"
             width={320}
             height={320}
-            className="w-40 h-40 md:w-56 md:h-56 lg:w-64 lg:h-64"
+            className="w-40 h-40 md:w-56 md:h-56 lg:w-64 lg:h-64 transition-transform duration-300 hover:scale-110"
+            style={{
+              animation: 'slideInRight 0.8s ease-out 0.5s both',
+            }}
             priority
           />
         </div>
 
         {/* Monkey animation below cake */}
         {monkeyAnimation && (
-          <div className="flex justify-center md:-mt-6 lg:-mt-8">
+          <div 
+            className="flex justify-center -mt-16 md:-mt-20 lg:-mt-24 xl:-mt-28"
+            style={{
+              animation: 'fadeInUp 1s ease-out 1.2s both',
+            }}
+          >
             <div className="w-40 h-40 md:w-56 md:h-56 lg:w-72 lg:h-72 xl:w-80 xl:h-80 flex-shrink-0">
               <Lottie 
                 animationData={monkeyAnimation} 
@@ -194,7 +218,12 @@ export default function SurprisePage() {
           </div>
         )}
 
-        <p className="text-2xl md:text-3xl lg:text-4xl text-[#8b6f5e] opacity-90 max-w-4xl leading-relaxed text-center">
+        <p 
+          className="text-2xl md:text-3xl lg:text-4xl text-[#8b6f5e] opacity-90 max-w-4xl leading-relaxed text-center -mt-12 md:-mt-14 lg:-mt-16 xl:-mt-18"
+          style={{
+            animation: 'fadeInUp 1s ease-out 1.5s both, textGlow 3s ease-in-out infinite 2.5s',
+          }}
+        >
           Happy Birthday! babee i love you so much and i wish you a very happy birthday!
         </p>
       </div>
