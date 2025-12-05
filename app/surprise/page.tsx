@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
+import Image from "next/image";
+import Lottie from "lottie-react";
 
 interface Confetti {
   x: number;
@@ -18,13 +20,30 @@ export default function SurprisePage() {
   const [confetti, setConfetti] = useState<Confetti[]>([]);
   const [showContent, setShowContent] = useState(false);
   const [mounted, setMounted] = useState(false);
-  const [hearts, setHearts] = useState<Array<{ left: number; top: number; emoji: string; animation: string; pulse: string; delay: string }>>([]);
+  const [hearts, setHearts] = useState<Array<{ left: number; top: number; type: 'balloon' | 'confetti'; animation: string; pulse: string; delay: string }>>([]);
   const [backgroundOrbs, setBackgroundOrbs] = useState<Array<{ width: number; height: number; left: number; top: number; animation: string; delay: string }>>([]);
+  const [monkeyAnimation, setMonkeyAnimation] = useState<any>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  const audioRef = useRef<HTMLAudioElement>(null);
   const router = useRouter();
 
   useEffect(() => {
     setMounted(true);
+    
+    // Load Lottie animation
+    fetch('/dancingmonkey.json')
+      .then(res => res.json())
+      .then(data => setMonkeyAnimation(data))
+      .catch(err => console.error('Error loading animation:', err));
+    
+    // Play background music
+    if (audioRef.current) {
+      audioRef.current.volume = 0.5; // Set volume to 50%
+      audioRef.current.play().catch(err => {
+        // Autoplay might be blocked by browser, user interaction required
+        console.log('Autoplay blocked, user interaction required:', err);
+      });
+    }
     
     // Create confetti
     const colors = ['#d97706', '#ea580c', '#f97316', '#fb923c', '#8b6f5e', '#f5f1e8'];
@@ -41,13 +60,12 @@ export default function SurprisePage() {
     setConfetti(newConfetti);
     setShowContent(true);
 
-    // Generate hearts
-    const emojis = ['❤️', '💖', '💝', '🎁', '⭐', '✨'];
+    // Generate floating elements (balloons and confetti)
     setHearts(
       Array.from({ length: 30 }, () => ({
         left: Math.random() * 100,
         top: Math.random() * 100,
-        emoji: emojis[Math.floor(Math.random() * emojis.length)],
+        type: Math.random() > 0.5 ? 'balloon' : 'confetti' as 'balloon' | 'confetti',
         animation: `${3 + Math.random() * 3}s`,
         pulse: `${2 + Math.random() * 2}s`,
         delay: `${Math.random() * 2}s`,
@@ -114,88 +132,78 @@ export default function SurprisePage() {
   }, [confetti.length]);
 
   return (
-    <div className="relative flex min-h-screen items-center justify-center overflow-hidden bg-gradient-to-br from-[#f5f1e8] via-[#faf7f0] to-[#f0ebe0] font-sans">
+    <div className="relative flex min-h-screen  items-center justify-center overflow-hidden bg-gradient-to-br from-[#f5f1e8] via-[#faf7f0] to-[#f0ebe0] font-sans">
+      {/* Background music */}
+      <audio
+        ref={audioRef}
+        src="/happybirthdaysong.mp3"
+        loop
+        preload="auto"
+      />
+      
       <canvas
         ref={canvasRef}
         className="absolute inset-0 pointer-events-none"
         style={{ zIndex: 1 }}
       />
 
-      <div className={`relative z-10 text-center px-4 transition-all duration-1000 ${showContent ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-        <div className="mb-8">
-          <h1 
-            className="text-6xl md:text-8xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-[#d97706] via-[#ea580c] to-[#d97706] mb-4"
-            style={{
-              animation: 'surpriseBounce 1s ease-out, gradient-shift 3s ease infinite',
-              backgroundSize: '200% 100%',
-            }}
-          >
-            <span style={{ animation: 'emojiSpin 2s ease-in-out infinite', display: 'inline-block' }}>🎉</span>
-            {' '}Surprise!{' '}
-            <span style={{ animation: 'emojiSpin 2s ease-in-out infinite', animationDelay: '0.5s', display: 'inline-block' }}>🎉</span>
-          </h1>
-          <div 
-            className="w-32 h-1 bg-gradient-to-r from-transparent via-[#d97706] to-transparent mx-auto mb-6"
-            style={{
-              animation: 'lineExpand 1s ease-out 0.5s both',
-            }}
+      {/* Birthday feature section */}
+      <div className="relative z-10 mt-10 flex flex-col items-center gap-10 md:gap-12 text-center px-4">
+        <h2 className="text-6xl md:text-8xl lg:text-9xl font-bold text-[#d97706] drop-shadow-lg">
+          Happy Birthday
+        </h2>
+
+        <div className="flex items-center justify-center gap-8 md:gap-16 lg:gap-20">
+          <Image
+            src="/meyly1.svg"
+            alt="left decoration"
+            width={320}
+            height={320}
+            className="w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80"
+            priority
+          />
+          <Image
+            src="/cake.svg"
+            alt="birthday cake"
+            width={500}
+            height={500}
+            className="w-72 h-72 md:w-96 md:h-96 lg:w-[28rem] lg:h-[28rem] drop-shadow-2xl"
+            priority
+          />
+          <Image
+            src="/meyly2.svg"
+            alt="right decoration"
+            width={320}
+            height={320}
+            className="w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80"
+            priority
           />
         </div>
 
-        <div className="space-y-6 max-w-2xl mx-auto">
-          <p 
-            className="text-2xl md:text-3xl text-[#8b6f5e] font-semibold"
-            style={{
-              animation: 'fadeInScale 1s ease-out 0.8s both',
-            }}
-          >
-            You've discovered the secret!
+        <div className="flex flex-col items-center justify-center gap-6 md:gap-8">
+          {monkeyAnimation && (
+            <div className="w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96 flex-shrink-0">
+              <Lottie 
+                animationData={monkeyAnimation} 
+                loop={true}
+                autoplay={true}
+                className="w-full h-full"
+              />
+            </div>
+          )}
+          <p className="text-2xl md:text-3xl lg:text-4xl text-[#8b6f5e] opacity-90 max-w-4xl leading-relaxed text-center">
+            Happy Birthday! babee i love you so much and i wish you a very happy birthday!
           </p>
-          <p 
-            className="text-lg md:text-xl text-[#8b6f5e] opacity-80"
-            style={{
-              animation: 'fadeInScale 1s ease-out 1s both',
-            }}
-          >
-            This is your special moment. Enjoy every second of it! ✨
-          </p>
-
-          <div 
-            className="flex justify-center gap-4 mt-8"
-            style={{
-              animation: 'fadeInUp 1s ease-out 1.2s both',
-            }}
-          >
-            <button
-              onClick={() => router.push('/')}
-              className="px-8 py-3 rounded-full bg-gradient-to-r from-[#d97706] to-[#ea580c] text-white font-bold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 active:scale-95"
-              style={{
-                animation: 'buttonBreathe 3s ease-in-out infinite',
-                backgroundSize: '200% 100%',
-              }}
-            >
-              Go Back
-            </button>
-            <button
-              onClick={() => window.location.reload()}
-              className="px-8 py-3 rounded-full bg-gradient-to-r from-[#8b6f5e] to-[#6b5648] text-white font-bold shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 active:scale-95"
-              style={{
-                animation: 'buttonBreathe 3s ease-in-out infinite 0.5s',
-              }}
-            >
-              Reload
-            </button>
-          </div>
         </div>
       </div>
 
-      {/* Floating hearts with enhanced animations */}
+      {/* Floating balloons and confetti with enhanced animations */}
       {mounted && (
         <div className="absolute inset-0 pointer-events-none">
           {hearts.map((heart, i) => (
             <div
               key={i}
-              className="absolute text-2xl"
+              className="absolute"
               style={{
                 left: `${heart.left}%`,
                 top: `${heart.top}%`,
@@ -203,7 +211,13 @@ export default function SurprisePage() {
                 animationDelay: heart.delay,
               }}
             >
-              {heart.emoji}
+              <Image 
+                src={heart.type === 'balloon' ? '/ballon.svg' : '/confetti.svg'} 
+                alt={heart.type === 'balloon' ? 'balloon' : 'confetti'} 
+                width={heart.type === 'balloon' ? 60 : 40} 
+                height={heart.type === 'balloon' ? 50 : 40} 
+                className="inline-block"
+              />
             </div>
           ))}
         </div>
