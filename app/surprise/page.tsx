@@ -148,41 +148,42 @@ export default function SurprisePage() {
       />
 
       {/* Birthday feature section */}
-      <div className="relative z-10 mt-10 flex flex-col items-center gap-10 md:gap-12 text-center px-4">
-        <h2 className="text-6xl md:text-8xl lg:text-9xl font-bold text-[#d97706] drop-shadow-lg">
+      <div className="relative  mt-10 flex flex-col items-center gap-8 md:gap-12 text-center px-4">
+        <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-[#d97706] drop-shadow-lg">
           Happy Birthday
         </h2>
 
-        <div className="flex items-center justify-center gap-8 md:gap-16 lg:gap-20">
+        <div className="flex items-center justify-center h-full md:gap-12 lg:gap-16">
           <Image
             src="/meyly1.svg"
             alt="left decoration"
-            width={320}
-            height={320}
-            className="w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80"
+            width={240}
+            height={240}
+            className="w-32 h-32 md:w-48 md:h-48 lg:w-56 lg:h-56"
             priority
           />
           <Image
             src="/cake.svg"
             alt="birthday cake"
-            width={500}
-            height={500}
-            className="w-72 h-72 md:w-96 md:h-96 lg:w-[28rem] lg:h-[28rem] drop-shadow-2xl"
+            width={400}
+            height={400}
+            className="w-56 h-56 md:w-72 md:h-72 lg:w-80 lg:h-80 drop-shadow-2xl"
             priority
           />
           <Image
             src="/meyly2.svg"
             alt="right decoration"
-            width={320}
-            height={320}
-            className="w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80"
+            width={240}
+            height={240}
+            className="w-32 h-32 md:w-48 md:h-48 lg:w-56 lg:h-56"
             priority
           />
         </div>
 
-        <div className="flex flex-col items-center justify-center gap-6 md:gap-8">
-          {monkeyAnimation && (
-            <div className="w-48 h-48 md:w-64 md:h-64 lg:w-80 lg:h-80 xl:w-96 xl:h-96 flex-shrink-0">
+        {/* Monkey animation below cake */}
+        {monkeyAnimation && (
+          <div className="flex justify-center md:-mt-6 lg:-mt-8">
+            <div className="w-32 h-32 md:w-48 md:h-48 lg:w-64 lg:h-64 xl:w-72 xl:h-72 flex-shrink-0">
               <Lottie 
                 animationData={monkeyAnimation} 
                 loop={true}
@@ -190,11 +191,12 @@ export default function SurprisePage() {
                 className="w-full h-full"
               />
             </div>
-          )}
-          <p className="text-2xl md:text-3xl lg:text-4xl text-[#8b6f5e] opacity-90 max-w-4xl leading-relaxed text-center">
-            Happy Birthday! babee i love you so much and i wish you a very happy birthday!
-          </p>
-        </div>
+          </div>
+        )}
+
+        <p className="text-2xl md:text-3xl lg:text-4xl text-[#8b6f5e] opacity-90 max-w-4xl leading-relaxed text-center">
+          Happy Birthday! babee i love you so much and i wish you a very happy birthday!
+        </p>
       </div>
 
       {/* Floating balloons and confetti with enhanced animations */}
