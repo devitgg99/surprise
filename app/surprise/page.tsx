@@ -62,7 +62,7 @@ export default function SurprisePage() {
 
     // Generate floating elements (balloons and confetti)
     setHearts(
-      Array.from({ length: 30 }, () => ({
+      Array.from({ length: 12 }, () => ({
         left: Math.random() * 100,
         top: Math.random() * 100,
         type: Math.random() > 0.5 ? 'balloon' : 'confetti' as 'balloon' | 'confetti',
@@ -149,7 +149,7 @@ export default function SurprisePage() {
 
       {/* Birthday feature section */}
       <div className="relative  mt-10 flex flex-col items-center gap-8 md:gap-12 text-center px-4">
-        <h2 className="text-4xl md:text-6xl lg:text-7xl font-bold text-[#d97706] drop-shadow-lg">
+        <h2 className="text-5xl md:text-7xl lg:text-8xl font-bold text-[#d97706] drop-shadow-lg">
           Happy Birthday
         </h2>
 
@@ -157,25 +157,25 @@ export default function SurprisePage() {
           <Image
             src="/meyly1.svg"
             alt="left decoration"
-            width={240}
-            height={240}
-            className="w-32 h-32 md:w-48 md:h-48 lg:w-56 lg:h-56"
+            width={320}
+            height={320}
+            className="w-40 h-40 md:w-56 md:h-56 lg:w-64 lg:h-64"
             priority
           />
           <Image
             src="/cake.svg"
             alt="birthday cake"
-            width={400}
-            height={400}
-            className="w-56 h-56 md:w-72 md:h-72 lg:w-80 lg:h-80 drop-shadow-2xl"
+            width={500}
+            height={500}
+            className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 drop-shadow-2xl"
             priority
           />
           <Image
             src="/meyly2.svg"
             alt="right decoration"
-            width={240}
-            height={240}
-            className="w-32 h-32 md:w-48 md:h-48 lg:w-56 lg:h-56"
+            width={320}
+            height={320}
+            className="w-40 h-40 md:w-56 md:h-56 lg:w-64 lg:h-64"
             priority
           />
         </div>
@@ -183,7 +183,7 @@ export default function SurprisePage() {
         {/* Monkey animation below cake */}
         {monkeyAnimation && (
           <div className="flex justify-center md:-mt-6 lg:-mt-8">
-            <div className="w-32 h-32 md:w-48 md:h-48 lg:w-64 lg:h-64 xl:w-72 xl:h-72 flex-shrink-0">
+            <div className="w-40 h-40 md:w-56 md:h-56 lg:w-72 lg:h-72 xl:w-80 xl:h-80 flex-shrink-0">
               <Lottie 
                 animationData={monkeyAnimation} 
                 loop={true}
