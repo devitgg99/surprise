@@ -178,9 +178,9 @@ export default function SurprisePage() {
           <Image
             src="/cake.svg"
             alt="birthday cake"
-            width={500}
-            height={500}
-            className="w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 drop-shadow-2xl transition-transform duration-500 hover:scale-105"
+            width={400}
+            height={400}
+            className="w-56 h-56 md:w-72 md:h-72 lg:w-80 lg:h-80 drop-shadow-2xl transition-transform duration-500 hover:scale-105"
             style={{
               animation: 'cakeBounce 1s ease-out 0.7s both, cakeFloat 3s ease-in-out infinite 1.7s',
             }}
