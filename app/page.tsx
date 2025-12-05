@@ -172,6 +172,39 @@ export default function Home() {
         />
       </div>
 
+      {/* Decorative corner elements */}
+      <div className="absolute top-0 left-0 w-64 h-64 opacity-10">
+        <div className="absolute top-8 left-8 w-32 h-32 border-4 border-[#d97706] rounded-full animate-spin" style={{ animationDuration: '20s' }} />
+        <div className="absolute top-16 left-16 w-16 h-16 border-4 border-[#ea580c] rounded-full animate-spin" style={{ animationDuration: '15s', animationDirection: 'reverse' }} />
+      </div>
+      <div className="absolute bottom-0 right-0 w-64 h-64 opacity-10">
+        <div className="absolute bottom-8 right-8 w-32 h-32 border-4 border-[#d97706] rounded-full animate-spin" style={{ animationDuration: '25s', animationDirection: 'reverse' }} />
+        <div className="absolute bottom-16 right-16 w-16 h-16 border-4 border-[#ea580c] rounded-full animate-spin" style={{ animationDuration: '18s' }} />
+      </div>
+
+      {/* Animated geometric shapes */}
+      {mounted && (
+        <div className="absolute inset-0 pointer-events-none">
+          {[...Array(6)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute opacity-20"
+              style={{
+                left: `${20 + i * 15}%`,
+                top: `${10 + (i % 3) * 30}%`,
+                width: '60px',
+                height: '60px',
+                border: `3px solid ${['#d97706', '#ea580c', '#f97316'][i % 3]}`,
+                borderRadius: i % 2 === 0 ? '50%' : '20%',
+                animation: `shapeRotate ${15 + i * 3}s linear infinite`,
+                animationDelay: `${i * 0.5}s`,
+                transform: `rotate(${i * 30}deg)`,
+              }}
+            />
+          ))}
+        </div>
+      )}
+
       {/* Floating decorative elements */}
       {mounted && (
         <div className="absolute inset-0 pointer-events-none">
@@ -247,16 +280,38 @@ export default function Home() {
         style={{ zIndex: 2 }}
       />
 
-      {/* Central button with ripple effects */}
+      {/* Central button with ripple effects and decorative rings */}
       <div className="relative z-10">
+        {/* Decorative rings around button */}
+        <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
+          <div 
+            className="absolute w-32 h-32 border-2 border-[#d97706] rounded-full opacity-30"
+            style={{
+              animation: 'ringPulse 2s ease-in-out infinite',
+            }}
+          />
+          <div 
+            className="absolute w-40 h-40 border-2 border-[#ea580c] rounded-full opacity-20"
+            style={{
+              animation: 'ringPulse 2.5s ease-in-out infinite 0.3s',
+            }}
+          />
+          <div 
+            className="absolute w-48 h-48 border-2 border-[#f97316] rounded-full opacity-10"
+            style={{
+              animation: 'ringPulse 3s ease-in-out infinite 0.6s',
+            }}
+          />
+        </div>
+
         <button
           onMouseEnter={() => setIsHovered(true)}
           onMouseLeave={() => setIsHovered(false)}
           onClick={handleClick}
-          className="relative px-12 py-4 rounded-full bg-gradient-to-r from-[#d97706] via-[#ea580c] to-[#d97706] text-white font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer overflow-hidden"
+          className="relative px-12 py-4 rounded-full bg-gradient-to-r from-[#d97706] via-[#ea580c] to-[#d97706] text-white font-bold text-lg shadow-lg hover:shadow-xl transition-all duration-300 hover:scale-105 active:scale-95 cursor-pointer overflow-hidden group"
           style={{
             boxShadow: isHovered 
-              ? '0 20px 40px rgba(217, 119, 6, 0.4)' 
+              ? '0 20px 40px rgba(217, 119, 6, 0.4), 0 0 60px rgba(217, 119, 6, 0.2)' 
               : '0 10px 30px rgba(217, 119, 6, 0.3)',
             backgroundSize: '200% 100%',
             animation: isHovered 
@@ -309,32 +364,62 @@ export default function Home() {
       </div>
 
       {/* Welcome text with animations */}
-      <div className="absolute top-12 left-1/2 transform -translate-x-1/2 z-10">
-        <h1 
-          className="text-4xl md:text-5xl font-bold text-[#8b6f5e] opacity-80 text-center"
-          style={{
-            animation: 'fadeInDown 1s ease-out, textGlow 3s ease-in-out infinite',
-            animationDelay: '0s, 1s',
-          }}
-        >
-          <span style={{ animation: 'wave 2s ease-in-out infinite', animationDelay: '0s', display: 'inline-block' }}>H</span>
-          <span style={{ animation: 'wave 2s ease-in-out infinite', animationDelay: '0.1s', display: 'inline-block' }}>e</span>
-          <span style={{ animation: 'wave 2s ease-in-out infinite', animationDelay: '0.2s', display: 'inline-block' }}>y</span>
-          <span style={{ animation: 'wave 2s ease-in-out infinite', animationDelay: '0.3s', display: 'inline-block' }}>   !</span>
-          <span style={{ animation: 'wave 2s ease-in-out infinite', animationDelay: '0.4s', display: 'inline-block' }}>b</span>
-          <span style={{ animation: 'wave 2s ease-in-out infinite', animationDelay: '0.5s', display: 'inline-block' }}>a</span>
-          <span style={{ animation: 'wave 2s ease-in-out infinite', animationDelay: '0.6s', display: 'inline-block' }}>b</span>
-          <span style={{ animation: 'wave 2s ease-in-out infinite', animationDelay: '0.7s', display: 'inline-block' }}>e</span>
-        </h1>
-        <p 
-          className="text-center text-[#8b6f5e] opacity-60 mt-2 text-sm md:text-base"
-          style={{
-            animation: 'fadeInUp 1s ease-out 0.5s both',
-          }}
-        >
-          I got something for you
-        </p>
+      <div className="absolute top-8 md:top-12 left-1/2 transform -translate-x-1/2 z-10 px-4">
+        <div className="relative">
+          {/* Decorative background for text */}
+          <div 
+            className="absolute inset-0 bg-gradient-to-r from-[#d97706]/10 via-[#ea580c]/10 to-[#d97706]/10 rounded-2xl blur-xl -z-10"
+            style={{
+              animation: 'textBackgroundPulse 4s ease-in-out infinite',
+            }}
+          />
+          <h1 
+            className="text-4xl md:text-5xl lg:text-6xl font-bold text-[#8b6f5e] opacity-90 text-center relative"
+            style={{
+              animation: 'fadeInDown 1s ease-out, textGlow 3s ease-in-out infinite',
+              animationDelay: '0s, 1s',
+              textShadow: '2px 2px 8px rgba(139, 111, 94, 0.3)',
+            }}
+          >
+            <span style={{ animation: 'wave 2s ease-in-out infinite', animationDelay: '0s', display: 'inline-block' }}>H</span>
+            <span style={{ animation: 'wave 2s ease-in-out infinite', animationDelay: '0.1s', display: 'inline-block' }}>e</span>
+            <span style={{ animation: 'wave 2s ease-in-out infinite', animationDelay: '0.2s', display: 'inline-block' }}>y</span>
+            <span style={{ animation: 'wave 2s ease-in-out infinite', animationDelay: '0.3s', display: 'inline-block' }}>   !</span>
+            <span style={{ animation: 'wave 2s ease-in-out infinite', animationDelay: '0.4s', display: 'inline-block' }}>b</span>
+            <span style={{ animation: 'wave 2s ease-in-out infinite', animationDelay: '0.5s', display: 'inline-block' }}>a</span>
+            <span style={{ animation: 'wave 2s ease-in-out infinite', animationDelay: '0.6s', display: 'inline-block' }}>b</span>
+            <span style={{ animation: 'wave 2s ease-in-out infinite', animationDelay: '0.7s', display: 'inline-block' }}>e</span>
+          </h1>
+          <p 
+            className="text-center text-[#8b6f5e] opacity-70 mt-3 text-base md:text-lg font-medium"
+            style={{
+              animation: 'fadeInUp 1s ease-out 0.5s both',
+            }}
+          >
+            I got something for you ✨
+          </p>
+        </div>
       </div>
+
+      {/* Floating decorative hearts/emojis */}
+      {mounted && (
+        <div className="absolute inset-0 pointer-events-none z-5">
+          {[...Array(8)].map((_, i) => (
+            <div
+              key={i}
+              className="absolute text-2xl md:text-3xl opacity-30"
+              style={{
+                left: `${10 + (i * 12)}%`,
+                top: `${15 + (i % 4) * 20}%`,
+                animation: `floatHeart ${4 + Math.random() * 2}s ease-in-out infinite`,
+                animationDelay: `${i * 0.3}s`,
+              }}
+            >
+              {['💝', '🎁', '🎈', '🎉', '⭐', '✨', '💖', '🎂'][i]}
+            </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }
